@@ -1,0 +1,491 @@
+@import "palette"
+
+// Sizes
+$content-initial-height: calc(100vh - 64px) // window height minus header height
+
+.d-none
+  display: none
+
+.d-block
+  display: block
+
+.d-flex
+  display: flex
+
+// Styleguide
+.text-color-accent
+  color: $accent-color
+.text-color-secondary
+  color: $secondary-text-color !important
+.text-color-primary
+  color: $primary-color-text !important
+.text-color-primary-dark
+  color: $primary-color-dark !important
+
+.color-primary
+  color: $primary-color !important
+.text-color-primary-light
+  color: $primary-color-light !important
+.text-black
+  color: $primary-text-color
+
+.ta-right
+  text-align: right
+.ta-left
+  text-align: left
+.ta-center
+  text-align: center
+
+// Fonts
+.text-uppercase
+  text-transform: uppercase
+  letter-spacing: 0.05em
+
+.font-weight-bold
+  font-weight: bold
+
+.font-weight-medium
+  font-weight: 500
+
+.font-weight-light
+  font-weight: 200
+
+.font-weight-ultra-light
+  font-weight: 100
+
+.text-underline
+  text-decoration: underline
+
+.fs-75p
+  font-size: 75% // hints, errors
+
+.fs-10
+  font-size: 10px
+.fs-11
+  font-size: 11px
+.fs-12
+  font-size: 12px
+.fs-13
+  font-size: 13px
+.fs-14
+  font-size: 14px
+.fs-15
+  font-size: 15px
+.fs-16
+  font-size: 16px
+.fs-17
+  font-size: 17px
+.fs-18
+  font-size: 18px
+.fs-19
+  font-size: 19px
+.fs-20
+  font-size: 20px
+.fs-24
+  font-size: 24px
+.fs-40
+  font-size: 40px
+
+.lh-18
+  line-height: 18px
+.lh-20
+  line-height: 20px
+.lh-23
+  line-height: 23px
+.lh-24
+  line-height: 24px
+.lh-30
+  line-height: 30px
+.lh-36
+  line-height: 36px
+
+.text-ellipsis
+  width: 100%
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+// Borders
+.border-accent
+  border: 1px solid $accent-color
+
+.border-light
+  border: 1px solid $divider-color
+
+.border-top-light
+  border-top: 1px solid $divider-color
+
+.border-right-light
+  border-right: 1px solid $divider-color
+
+.border-bottom-light
+  border-bottom: 1px solid $divider-color
+
+.border-left-light
+  border-left: 1px solid $divider-color
+
+.border-but-bottom-light
+  @extend .border-top-light
+  @extend .border-right-light
+  @extend .border-left-light
+
+.border-dashed
+  border-style: dashed
+
+// Flex
+.flex-1
+  flex: 1
+
+.flex-2
+  @extend .d-flex
+  flex: 2
+
+.flex-3
+  @extend .d-flex
+  flex: 3
+
+.push-right-sm
+  margin-right: 8px
+
+.push-xxl
+  margin: 56px
+
+// Sizing
+.w-auto
+  width: auto
+
+.w-100-percents
+  width: 100%
+.w-25
+  width: 25px !important
+.w-40px
+  width: 40px !important
+.h-auto
+  height: auto
+.h-10
+  height: 10em
+.h-36px
+  height: 36px
+.h-40px
+  height: 40px !important
+.h-48px
+  height: 48px !important
+.h-64px
+  height: 64px
+.h-100px
+  height: 100px !important
+.h-250px
+  height: 250px !important
+.t-35px
+  top: 35px
+
+.max-height-100vh
+  max-height: 100vh
+.min-height-100vh
+  min-height: 100vh
+.min-width-0
+  min-width: 0 !important
+.max-width-90
+  max-width: 90px
+
+.overflow-hidden
+  overflow: hidden
+
+// animation
+.transition
+  transition: all .3s ease-in-out
+
+@keyframes rotating
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(-360deg)
+
+@keyframes show
+  0%
+    display: block
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes hide
+  0%
+    opacity: 1
+  99%
+    opacity: 0
+  100%
+    display: none
+
+.animation-show
+  animation: show .3s ease-in-out
+
+.animation-show
+  animation: hide .3s ease-in-out
+
+.animation-infinite-rotation
+  animation: rotating 2s linear infinite
+
+// color
+.color-accent
+  color: $accent-color
+.color-white
+  color: white
+
+// Background
+.bg-white
+  background-color: $white
+
+.bg-grey-extra-light
+  background-color: $grey-extra-light
+
+.bg-grey-extra-light-2
+  background-color: $grey-extra-light-2
+
+.bg-black
+  background-color: $primary-text-color
+
+// Shadow
+.box-shadow
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1)
+
+// Rounded border
+.border-radius-3
+  border-radius: 3px
+
+.border-top-radius-3
+  border-radius: 3px 3px 0 0
+
+.border-bottom-radius-3
+  border-radius: 0 0 3px 3px
+
+.round
+  border-radius: 50%
+
+// hover
+.cursor-pointer
+  &:hover
+    cursor: pointer
+
+.hover-color-primary
+  &:hover
+    color: $primary-color
+
+.hover-color-primary-light
+  &:hover
+    color: $primary-color-light
+
+// header
+.z-index-100
+  z-index: 100
+
+.z-index-999
+  z-index: 999
+
+.z-index-1000
+  z-index: 1000
+
+// action dropdown
+.z-index-1100
+  z-index: 1100
+
+// padding
+.p-0
+  padding: 0
+.p-10
+  padding: 10px
+.p-15
+  padding: 15px
+.p-30
+  padding: 30px
+
+.pl-15
+  padding-left: 15px
+.pr-15
+  padding-right: 15px
+.pl-10
+  padding-left: 10px
+.pr-10
+  padding-right: 10px
+.pl-30
+  padding-left: 30px
+
+.pt-16
+  padding-top: 16px
+
+.pv-5
+  padding-top: 5px
+  padding-bottom: 5px
+
+.pv-10
+  padding-top: 10px
+  padding-bottom: 10px
+
+.pv-16
+  padding-top: 16px
+  padding-bottom: 16px
+
+.ph-20
+  padding-left: 20px
+  padding-right: 20px
+
+.pr-30
+  padding-right: 30px
+
+.m-0
+  margin: 0
+
+.ml--30
+  margin-left: -30px
+.ml-10
+  margin-left: 10px
+.ml-20
+  margin-left: 20px
+.ml-30
+  margin-left: 30px
+.ml-auto
+  margin-left: auto
+.mr-auto
+  margin-right: auto
+.mr-5
+  margin-right: 5px
+.mr-20
+  margin-right: 20px
+.mr-30
+  margin-right: 30px
+.mr--30
+  margin-right: -30px
+.mt-4
+  margin-top: 4px
+.mt-10
+  margin-top: 10px
+.mb-10
+  margin-bottom: 10px
+.mt-12
+  margin-top: 12px
+.mb-12
+  margin-bottom: 15px
+.mt-15
+  margin-top: 15px
+.mb-15
+  margin-bottom: 15px
+.mt-20
+  margin-top: 20px
+.mb-20
+  margin-bottom: 20px
+.ml-20
+  margin-left: 20px
+.mt-30
+  margin-top: 30px
+.mb-30
+  margin-bottom: 30px
+.mb-40
+  margin-bottom: 40px
+.mt-50
+  margin-top: 50px
+.mb-50
+  margin-bottom: 50px
+
+.mh-10
+  margin-left: 10px
+  margin-right: 10px
+
+// opacity
+.opacity-05
+  opacity: .5
+.opacity-06
+  opacity: .5
+.opacity-08
+  opacity: .8
+
+.flex-row-justify
+  display: flex
+  justify-content: space-around
+
+.flex-end
+  display: flex
+  justify-content: flex-end
+
+.justify-content-between
+  justify-content: space-between
+
+.justify-content-end
+  justify-content: flex-end
+
+.justify-content-center
+  justify-content: center
+
+.align-items-center
+  align-items: center
+
+.flex-wrap
+  flex-wrap: wrap
+
+.fd-column
+  flex-direction: column
+
+.container
+  width: 100%
+  padding-right: 15px
+  padding-left: 15px
+  margin-right: auto
+  margin-left: auto
+
+@media (min-width: 576px)
+  .container
+    max-width: 540px
+
+@media (min-width: 768px)
+  .container
+    max-width: 720px
+
+@media (min-width: 992px)
+  .container
+    max-width: 960px
+
+@media (min-width: 1200px)
+  .container
+    max-width: 1140px
+
+.print-out-only
+  display: none !important
+  @media print
+    display: inherit !important
+
+.no-print-out
+  @media print
+    display: none !important
+
+.block-no-scroll
+  max-height: calc(100vh)
+  overflow: auto
+  padding-top: 64px
+  margin-top: 0
+
+mat-progress-bar
+  position: fixed !important
+  top: 64px !important
+  width: 100% !important
+  left: 0 !important
+  z-index: 1 !important
+
+@media (max-width: 1024px)
+  mat-progress-bar
+    top: 56px !important
+
+.wrapper-scroll
+  overflow: auto
+  height: calc(100vh - 64px)
+
+@media (max-width: 1200px)
+  .block-no-scroll
+    padding-top: 0
+
+@media (max-width: 1200px)
+  .wrapper-scroll
+    height: calc(100vh - 64px)
+    margin-top: 64px
+
+@media (max-width: 1024px)
+  .wrapper-scroll
+    height: calc(100vh - 56px)
+    margin-top: 56px

@@ -1,0 +1,164 @@
+@import "utils"
+@import "reset"
+@import "variables_bootstrap"
+@import "animations"
+
+// global reusable elements
+button:focus
+  outline: none !important
+
+// input spinner
+mat-spinner.input-spinner
+  position: absolute !important
+  right: 1px !important
+  height: 15px !important
+  width: 15px !important
+  top: 10px !important
+  svg
+    height: 100% !important
+    width: 100% !important
+
+// button spinner
+mat-spinner.input-spinner
+  position: absolute !important
+  right: 1px !important
+  height: 15px !important
+  width: 15px !important
+  top: 10px !important
+  svg
+    height: 100% !important
+    width: 100% !important
+
+// horizontal line
+hr.hr
+  background-color: $divider-color
+  height: 1px
+  border: 0
+  margin: 0
+
+// stepper
+// stepper header
+td-steps.create-event-steps .td-steps-header
+  box-shadow: none !important
+// stepper content
+td-steps.create-event-steps .td-step-content
+  margin: 0
+// stepper cards
+td-steps.create-event-steps .td-step-content .mat-card
+  margin: 0
+
+td-steps.create-event-steps .td-step-content .mat-card-title
+  color: rgba(0, 0, 0, .54)
+  font-size: 18px
+  background-color: rgba(0, 0, 0, .03)
+  margin-bottom: 0
+  padding-bottom: 16px
+
+// custom card
+.card_custom
+  @extend .border-but-bottom-light
+  mat-card-content.mat-card-content
+    @media (min-width: 600px)
+      padding: 2em
+
+// custom table
+.table
+  &__head
+    @extend .text-color-secondary
+    background-color: rgba(0, 0, 0, 0.03)
+
+.button_icon
+  @extend .d-flex
+  @extend .min-width-0
+  justify-content: center
+  align-items: center
+
+// custom textarea
+.textarea_custom
+  .mat-input-wrapper
+    width: 100%
+
+// custom input
+mat-input-container.input_no-label
+  .mat-input-infix
+    border-top: 0 !important
+
+mat-card-title .controls
+  width: 120px !important
+  font-size: 1rem !important
+  margin-left: auto !important
+
+mat-sidenav .mat-list-item
+  @extend .transition
+  &:hover
+    color: $primary-color !important
+    text-decoration: none !important
+  &.active-item
+    background-color: $primary-color-light !important
+
+.btn
+  @extend .transition
+  opacity: 0.8
+  &:hover
+    opacity: 1
+  &_primary
+    background-color: $primary-color
+  &_primary-light
+    background-color: $primary-color-light
+  &_warn
+    background-color: $warning
+  &_rounded
+    border-radius: 50% !important
+
+td-search-box.td-search-box_custom
+  height: 72px
+  .mat-input-placeholder
+    color: white !important
+
+mat-tab-group.mat-tab-group_custom
+  .mat-tab-label
+    text-transform: uppercase
+    color: white
+  .mat-chip
+    color: white
+    background: $primary-color
+  .mat-ink-bar
+    background-color: $accent-color !important
+
+.td-layout-nav-wrapper > mat-toolbar
+  z-index: 2 !important
+
+.td-data-table-scrollable
+  overflow: hidden !important
+
+.td-data-table-row
+  cursor: pointer
+
+.secondary-text
+  color: $secondary-text-color
+
+.divider
+  display: block
+  height: 1px
+  background-color: $divider-color
+  opacity: .5
+
+.module-router-outlet-wrapper
+  min-height: $content-initial-height
+
+mat-toolbar.progress
+  position: relative !important
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    background-color: rgba(255, 255, 255, .2)
+    animation: loading 3s infinite
+
+.small-green-text
+  @extend .cursor-pointer
+  font-size: 13px
+  color: $primary-color
