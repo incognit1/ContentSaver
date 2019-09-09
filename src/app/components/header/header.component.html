@@ -1,0 +1,21 @@
+<!-- HEADER START -->
+<mat-toolbar>
+  <span class="logo">Content Saver</span>
+
+  <app-main-menu></app-main-menu>
+
+  <app-search></app-search>
+
+  <div class="provider-filter">
+    <mat-form-field>
+      <mat-label>Choose a provider</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let provider of providers" [value]="provider.value">
+          {{provider.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</mat-toolbar>
+

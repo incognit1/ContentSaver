@@ -1,0 +1,7 @@
+<app-result-list
+        [jokes]="jokes$ | async"
+        [loading]="isLoading$ | async"
+        [error]="error$ | async"
+        (refresh)="onRefresh()"
+        (select)="onSelect($event)"
+></app-result-list>

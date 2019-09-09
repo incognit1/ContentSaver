@@ -12,6 +12,7 @@ import { ProviderPageModule } from './pages/provider-page/provider-page.module';
 import { FavoritesPageModule } from './pages/favorites-page/favorites-page.module';
 import { SearchComponent } from './components/search/search.component';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { RootStoreModule } from './root-store';
 
 const MATERIAL_MODULES = [
   MatSidenavModule,
@@ -37,6 +38,7 @@ const MATERIAL_MODULES = [
     FavoritesPageModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    RootStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
