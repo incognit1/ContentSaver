@@ -30,13 +30,7 @@ export class FavoritesWrapperComponent implements OnInit, OnDestroy {
         this.favoriteItems$ = this.store.select(FavoritesStoreSelectors.selectFavoriteItems);
         this.state$         = this.store.pipe(select(FavoritesStoreSelectors.selectFavoritesState));
 
-        this.favoriteItems$.pipe(
-            filter(items => !items || (items && !items.length)),
-            take(1),
-            untilDestroyed(this),
-        ).subscribe(() => {
-            this.store.dispatch(load());
-        });
+        this.syncStore();
     }
 
     ngOnDestroy(): void {
@@ -78,5 +72,15 @@ export class FavoritesWrapperComponent implements OnInit, OnDestroy {
                 this.store.dispatch(FavoritesStoreActions.editFavoriteItemRequest({ item: editedItem }));
             },
         );
+    }
+
+    private syncStore(): void {
+        this.favoriteItems$.pipe(
+            filter(items => !items || (items && !items.length)),
+            take(1),
+            untilDestroyed(this),
+        ).subscribe(() => {
+            this.store.dispatch(load());
+        });
     }
 }

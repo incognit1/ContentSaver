@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, concatMap, map, tap } from 'rxjs/operators';
+import { catchError, concatMap, map } from 'rxjs/operators';
 import * as featureActions from './actions';
 import * as favoritesAction from './../favorites-store/actions';
 import { withLatestFrom } from 'rxjs/internal/operators';
@@ -15,7 +15,7 @@ import { FavoriteItemModel } from '../../shared/models/favorite-item.model';
 import { selectFavoriteItems } from '../favorites-store/selectors';
 import { ProviderResultItem } from '../../core/providers/providers-result.type';
 import { dbKeyId } from '../../shared/constants/symbols';
-import { SortDirectionEnum } from '../filters-store/state';
+import { customSort } from '../../utils/functions';
 
 @Injectable()
 export class SearchStoreEffects {
@@ -39,7 +39,7 @@ export class SearchStoreEffects {
             concatMap(([ action, term, provider, favorites, sort ]) => {
                     return this.defineProviderRequest(provider, term).pipe(
                         map(items => this.addFavoriteProperty(items, favorites)),
-                        map(items => this.sortBy(items, sort.sortBy, sort.direction)),
+                        map(items => customSort(items, sort)),
                         map(items =>
                             featureActions.loadSuccess({
                                 items,
@@ -55,7 +55,7 @@ export class SearchStoreEffects {
     refreshEffect$ = createEffect(() =>
         this.actions$.pipe(
             ofType(featureActions.refresh),
-            map(_ => featureActions.load())
+            map(_ => featureActions.load()),
         )
     );
 
@@ -101,19 +101,6 @@ export class SearchStoreEffects {
 
     private getFavoriteId(favorites: FavoriteItemModel[], itemId: string | number): string | number {
         return (favorites.find(favorite => favorite.itemId === itemId) || {}) [ dbKeyId ];
-    }
-
-    private sortBy(
-        items: ProviderResultItem[], property: string, sortBy: SortDirectionEnum): ProviderResultItem[] {
-        const arrayToSort = [ ...items ];
-
-        arrayToSort.sort((a: ProviderResultItem, b: ProviderResultItem) => {
-            const compare = ('' + a[property]).localeCompare(b[property] + '');
-
-            return sortBy === SortDirectionEnum.ASC ? compare : compare * -1;
-        });
-
-        return arrayToSort;
     }
 
     private addFavoriteProperty(items: ProviderResultItem[], favorites: FavoriteItemModel[]): any[] {

@@ -34,6 +34,32 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.syncStore();
+
+        this.resultItems$ = this.store.select(SearchStoreSelectors.selectResultItems);
+        this.state$       = this.store.pipe(select(SearchStoreSelectors.selectSearchState));
+    }
+
+    ngOnDestroy(): void {
+    }
+
+    onRefresh(): void {
+        this.store.dispatch(SearchStoreActions.refresh());
+    }
+
+    onAddToFavorite(item: ProviderResultItem): void {
+        this.store.dispatch(SearchStoreActions.select({ item }));
+    }
+
+    onRemoveFromFavorite(item: ProviderResultItem): void {
+        this.store.dispatch(SearchStoreActions.removeFromFavoriteRequest({ item }));
+    }
+
+    onSortChange(sort: SortInterface): void {
+        this.store.dispatch(FiltersStoreActions.updateSort({ sort }));
+    }
+
+    private syncStore(): void {
         this.store.select(providerSelector).pipe(
             untilDestroyed(this),
         ).subscribe(this.defineTableStructure);
@@ -50,15 +76,9 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
             untilDestroyed(this),
             take(1),
         ).subscribe(() => this.store.dispatch(FavoritesStoreActions.load()));
-
-        this.resultItems$ = this.store.select(SearchStoreSelectors.selectResultItems);
-        this.state$       = this.store.pipe(select(SearchStoreSelectors.selectSearchState));
     }
 
-    ngOnDestroy(): void {
-    }
-
-    defineTableStructure = (provider: ProviderEnum): void => {
+    private defineTableStructure = (provider: ProviderEnum): void => {
         switch (provider) {
             case ProviderEnum.Wikipedia:
                 this.tableStructure = [
@@ -80,21 +100,4 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
                 break;
         }
     }
-
-    onRefresh(): void {
-        this.store.dispatch(SearchStoreActions.refresh());
-    }
-
-    onAddToFavorite(item: ProviderResultItem): void {
-        this.store.dispatch(SearchStoreActions.select({ item }));
-    }
-
-    onRemoveFromFavorite(item: ProviderResultItem): void {
-        this.store.dispatch(SearchStoreActions.removeFromFavoriteRequest({ item }));
-    }
-
-    onSortChange(sort: SortInterface): void {
-        this.store.dispatch(FiltersStoreActions.updateSort({ sort }));
-    }
-
 }
