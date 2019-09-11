@@ -1,5 +1,10 @@
 <ng-container [ngSwitch]="state">
 
+    <!-- Data loading was successful and there is data to display. -->
+    <ng-container *ngSwitchCase="componentStateEnum.Success">
+        <ng-content></ng-content>
+    </ng-container>
+
     <!-- Loading data started -->
     <ng-container *ngSwitchCase="componentStateEnum.Loading">
         <div class="loader" [ngStyle]="styles" layout="row">
@@ -7,11 +12,6 @@
         </div>
     </ng-container>
     <!-- Loading data finished -->
-
-    <!-- Data loading was successful and there is data to display. -->
-    <ng-container *ngSwitchCase="componentStateEnum.Success">
-        <ng-content></ng-content>
-    </ng-container>
 
     <!-- Data loading was successful, but no data to display. -->
     <ng-container *ngSwitchCase="componentStateEnum.Empty">
@@ -22,7 +22,7 @@
             </div>
 
             <ng-container *ngIf="emptyBlock.childNodes.length == 0">
-                <span i18n="Стандартный текст компонента состояния если недостаточно данных для отображения">Данные для отображения отсутствуют</span>
+                <span i18n="Стандартный текст компонента состояния если недостаточно данных для отображения">No data to display</span>
             </ng-container>
         </div>
     </ng-container>
@@ -31,15 +31,14 @@
     <ng-container *ngSwitchCase="componentStateEnum.Error">
         <div class="error-container" [ngStyle]="styles">
             <mat-icon class="error-icon text-color-secondary">mood_bad</mat-icon>
-            <div i18n="Блок появляющийся после возникновения ошибки при загрузке данных | Текст ошибки">Уппс.. Возникла
-                ошибка при загрузке данных
+            <div i18n="Блок появляющийся после возникновения ошибки при загрузке данных | Текст ошибки">Upps.. Error loading data
             </div>
             <button (click)="getData()"
                     *ngIf="getData"
                     color="accent"
                     i18n="Блок появляющийся после возникновения ошибки при загрузке данных | Текст кнопки повторной загрузки"
                     class="load-data-btn"
-                    mat-button>Попытаться еще раз
+                    mat-button>Try again
             </button>
         </div>
     </ng-container>

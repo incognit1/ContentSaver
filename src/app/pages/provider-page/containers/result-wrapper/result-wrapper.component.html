@@ -5,5 +5,7 @@
         [state]="state$ | async"
         (refresh)="onRefresh()"
         (addToFavorite)="onAddToFavorite($event)"
+        (removeFromFavorite)="onRemoveFromFavorite($event)"
+        (sortChanged)="onSortChange($event)"
         [tableStructure]="tableStructure"
 ></app-result-list>

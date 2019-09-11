@@ -1,34 +1,27 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as featureActions from './actions';
-import { initialState, State, wikiAdapter } from './state';
-import { ComponentStateModel } from '../../shared/modules/component-state/component-state.model';
+import { initialState, State } from './state';
 import { ComponentState } from '../../shared/modules/component-state/component-state.enum';
 
 const featureReducer = createReducer(
     initialState,
     on(featureActions.load, state => ({
         ...state,
-        isLoading: true,
-        error    : null,
         state    : ComponentState.Loading,
     })),
-    on(featureActions.loadSuccess, (state, { favorites }) =>
+    on(featureActions.loadSuccess, (state, { jokes }) =>
         ({
             ...state,
-            isLoading: false,
-            error    : null,
-            state    : favorites.length ? ComponentState.Success : ComponentState.Empty,
-            favorites: favorites,
+            state    : jokes.length ? ComponentState.Success : ComponentState.Empty,
+            jokes    : jokes,
         }),
     ),
     on(featureActions.loadFailure, (state, { error }) => ({
         ...state,
-        isLoading: false,
-        error,
         state    : ComponentState.Error,
     })),
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): any {
     return featureReducer(state, action);
 }

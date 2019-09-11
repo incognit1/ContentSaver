@@ -1,4 +1,4 @@
-import { JokeStoreState } from './joke-store';
+import { JokeStoreState } from './search-store';
 import { FiltersStoreState } from './filters-store';
 
 export interface State {

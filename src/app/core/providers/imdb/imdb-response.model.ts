@@ -13,9 +13,10 @@ export class ImdbResponseModel {
     public type: string, // s
     public title: string, // l,
     public index: number,
+    public isFavorite: boolean = false,
   ) {
   }
-  static initModelFromResponse(raw: ImdbResponseInterface, index: number) {
+  static initModelFromResponse(raw: ImdbResponseInterface, index: number): ImdbResponseModel {
     return new ImdbResponseModel(raw.imdbID, raw.Year, raw.Type, raw.Title, index);
   }
 

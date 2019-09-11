@@ -12,42 +12,50 @@ import { ApiService } from '../../core/api/api.service';
 
 @Injectable()
 export class FavoritesStoreEffects {
-  constructor(
-    private dataService: ApiService,
-    private actions$: Actions,
-    private router: Router,
-    private store: Store<RootStoreState.State>
-  ) {
-  }
-  
-  loadRequestEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(featureActions.load),
-      concatMap(() => {
-          return this.dataService.getFavoritesItems().pipe(
-            map(favorites => {
-                return featureActions.loadSuccess({ favorites });
-              }
-            ),
-            catchError(error => of(featureActions.loadFailure({ error })))
-          );
-        }
-      )
-    )
-  );
-  
-  refreshEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(featureActions.refresh),
-      map(_ => featureActions.load())
-    )
-  );
-  
-  removeItemEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(featureActions.removeFromFavoriteRequest),
-      concatMap(({ id }) => this.dataService.deleteFavoriteItem(id)),
-      map(_ => featureActions.load()),
-    )
-  );
+    constructor(
+        private dataService: ApiService,
+        private actions$: Actions,
+        private router: Router,
+        private store: Store<RootStoreState.State>,
+    ) {
+    }
+
+    loadRequestEffect$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(featureActions.load),
+            concatMap(() => {
+                    return this.dataService.getFavoritesItems().pipe(
+                        map(favorites => {
+                                return featureActions.loadSuccess({ favorites });
+                            }
+                        ),
+                        catchError(error => of(featureActions.loadFailure({ error })))
+                    );
+                }
+            )
+        )
+    );
+
+    refreshEffect$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(featureActions.refresh),
+            map(() => featureActions.load()),
+        ),
+    );
+
+    removeItemEffect$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(featureActions.removeFromFavoriteRequest),
+            concatMap(({ id }) => this.dataService.deleteFavoriteItem(id)),
+            map(() => featureActions.load()),
+        ),
+    );
+
+    editItemEffect$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(featureActions.editFavoriteItemRequest),
+            concatMap(({ item }) => this.dataService.updateFavoriteItem(item)),
+            map(() => featureActions.load()),
+        ),
+    );
 }

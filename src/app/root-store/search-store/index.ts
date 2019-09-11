@@ -3,11 +3,11 @@ import * as JokeStoreSelectors from './selectors';
 import * as JokeStoreState from './state';
 
 export {
-  JokeStoreModule
-} from './joke-store.module';
+    SearchStoreModule,
+} from './search-store.module';
 
 export {
-  JokeStoreActions,
-  JokeStoreSelectors,
-  JokeStoreState
+    JokeStoreActions,
+    JokeStoreSelectors,
+    JokeStoreState,
 };

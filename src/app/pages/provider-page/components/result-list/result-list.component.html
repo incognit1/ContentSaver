@@ -1,10 +1,10 @@
 <mat-card>
   <component-state [state]="state">
     <div *ngIf="items">
-      <mat-table [dataSource]="items">
+      <mat-table [dataSource]="items" matSort (matSortChange)="onSortChange($event)">
         <ng-container *ngFor="let column of tableStructure">
           <ng-container [matColumnDef]="column.name">
-            <mat-header-cell *matHeaderCellDef> {{column.title}}</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.title}}</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element[column.key]}}</mat-cell>
           </ng-container>
         </ng-container>
@@ -12,19 +12,19 @@
         <ng-container matColumnDef="favorite">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="onAddToFavorite(element)"><mat-icon>star_border</mat-icon></button>
+            <button *ngIf="!element.isFavorite"
+                    mat-icon-button
+                    (click)="onAddToFavorite(element)"><mat-icon>star_border</mat-icon></button>
+
+            <button *ngIf="element.isFavorite"
+                    mat-icon-button
+                    (click)="onRemoveFromFavorite(element)"><mat-icon>star</mat-icon></button>
           </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="_displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: _displayedColumns;"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-    </div>
-
-    <div class="refresh-button">
-      <button mat-fab (click)="this.refresh.emit()">
-        <mat-icon>refresh</mat-icon>
-      </button>
     </div>
   </component-state>
 </mat-card>

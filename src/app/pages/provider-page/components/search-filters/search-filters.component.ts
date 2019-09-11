@@ -6,58 +6,62 @@ import { ProviderEnum } from '../../../../shared/enums/provider-enum';
 import { ProviderFilterInterface } from '../../../../shared/interfaces/provider-filter.interface';
 
 @Component({
-  selector: 'app-search-filters',
-  templateUrl: './search-filters.component.html',
-  styleUrls: [ './search-filters.component.sass' ]
+    selector   : 'app-search-filters',
+    templateUrl: './search-filters.component.html',
+    styleUrls  : [ './search-filters.component.sass' ]
 })
 export class SearchFiltersComponent implements OnInit {
-  @Input() set provider(value: ProviderEnum) {
-    if (this.filterForm) {
-      this.providerCtrl.setValue(value);
+    @Input() set provider(value: ProviderEnum) {
+        if (this.filterForm) {
+            this.providerCtrl.setValue(value);
+        }
+        this._provider = value;
     }
-    this._provider = value;
-  }
-  @Input() set searchTerm(value: string) {
-    if (this.filterForm) {
-      this.termCtrl.setValue(value);
+
+    @Input() set searchTerm(value: string) {
+        if (this.filterForm) {
+            this.termCtrl.setValue(value);
+        }
+        this._term = value;
     }
-    this._term = value;
-  }
-  @Output() applyFilters = new EventEmitter();
 
-  filterForm: FormGroup;
+    @Output() applyFilters = new EventEmitter();
 
-  readonly providers: ProviderFilterInterface[] = [
-    { value: ProviderEnum.Wikipedia, title: 'Wikipedia' },
-    { value: ProviderEnum.IMDB, title: 'IMDB' }
-  ];
-  private _provider: ProviderEnum;
-  private _term: string;
-  constructor(
-    public store: Store<RootStoreState.State>,
-    private fb: FormBuilder,
-  ) {
-  }
+    filterForm: FormGroup;
 
-  ngOnInit() {
-    this.initFilterForm();
-  }
+    readonly providers: ProviderFilterInterface[] = [
+        { value: ProviderEnum.Wikipedia, title: 'Wikipedia' },
+        { value: ProviderEnum.IMDB, title: 'IMDB' },
+    ];
+    private _provider: ProviderEnum;
+    private _term: string;
 
-  initFilterForm(): void {
-    this.filterForm = this.fb.group({
-      provider: [ this._provider, [ Validators.required ] ],
-      term: [ this._term, [ Validators.required ] ]
-    });
-  }
+    constructor(
+        public store: Store<RootStoreState.State>,
+        private fb: FormBuilder,
+    ) {
+    }
 
-  get providerCtrl(): AbstractControl {
-    return this.filterForm.get('provider');
-  }
-  get termCtrl(): AbstractControl {
-    return this.filterForm.get('term');
-  }
+    ngOnInit(): void {
+        this.initFilterForm();
+    }
 
-  onFiltersApply(): void {
-    this.applyFilters.emit(this.filterForm.value);
-  }
+    initFilterForm(): void {
+        this.filterForm = this.fb.group({
+            provider: [ this._provider, [ Validators.required ] ],
+            term    : [ this._term, [ Validators.required, Validators.minLength(3) ] ],
+        });
+    }
+
+    get providerCtrl(): AbstractControl {
+        return this.filterForm.get('provider');
+    }
+
+    get termCtrl(): AbstractControl {
+        return this.filterForm.get('term');
+    }
+
+    onFiltersApply(): void {
+        this.applyFilters.emit(this.filterForm.value);
+    }
 }
