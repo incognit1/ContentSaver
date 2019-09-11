@@ -1,7 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 import { ProviderResultItem } from '../../core/providers/providers-result.type';
+import { SortInterface } from '../filters-store/state';
 
-export const load = createAction('[App Component] Load');
+export const load = createAction('[Search API] Load');
+
+export const sort = createAction(
+  '[App Component] Sort',
+  props<{ sort: SortInterface }>(),
+);
 
 export const loadFailure = createAction(
   '[Search API] Load Failure',

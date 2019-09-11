@@ -2,18 +2,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
-    FavoritesStoreActions,
-    FiltersStoreActions,
-    SearchStoreActions,
-    SearchStoreSelectors,
-    RootStoreState
+  FavoritesStoreActions,
+  FiltersStoreActions,
+  RootStoreState,
+  SearchStoreActions,
+  SearchStoreSelectors
 } from '../../../../root-store';
 import { providerSelector, sortSelector } from '../../../../root-store/filters-store/selectors';
 import { ProviderEnum } from '../../../../shared/enums/provider-enum';
 import { TableStructureModel } from '../../../../shared/interfaces/table-structure.interface';
 import { ProviderResultItem } from '../../../../core/providers/providers-result.type';
 import { ComponentState } from '../../../../shared/modules/component-state/component-state.enum';
-import { refresh } from '../../../../root-store/search-store/actions';
+import { sort } from '../../../../root-store/search-store/actions';
 import { SortInterface } from '../../../../root-store/filters-store/state';
 import { filter, skip, take } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
@@ -67,12 +67,10 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
         this.store.select(sortSelector).pipe(
             skip(1),
             untilDestroyed(this),
-        ).subscribe(() => {
-            this.store.dispatch(refresh());
-        });
+        ).subscribe(sortData => this.store.dispatch(sort({ sort: sortData })));
 
         this.store.select(selectFavoriteItems).pipe(
-            filter(items => !items || !!(items && !items.length)),
+            filter(items => !items || (!!items && !items.length)),
             untilDestroyed(this),
             take(1),
         ).subscribe(() => this.store.dispatch(FavoritesStoreActions.load()));
