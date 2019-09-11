@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
     FavoritesStoreActions,
     FiltersStoreActions,
-    JokeStoreActions,
-    JokeStoreSelectors,
+    SearchStoreActions,
+    SearchStoreSelectors,
     RootStoreState
 } from '../../../../root-store';
 import { providerSelector, sortSelector } from '../../../../root-store/filters-store/selectors';
@@ -15,14 +15,16 @@ import { ProviderResultItem } from '../../../../core/providers/providers-result.
 import { ComponentState } from '../../../../shared/modules/component-state/component-state.enum';
 import { refresh } from '../../../../root-store/search-store/actions';
 import { SortInterface } from '../../../../root-store/filters-store/state';
-import { skip } from 'rxjs/operators';
+import { filter, skip, take } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { selectFavoriteItems } from '../../../../root-store/favorites-store/selectors';
 
 @Component({
     selector   : 'app-result-wrapper',
     templateUrl: './result-wrapper.component.html',
     styleUrls  : [ './result-wrapper.component.sass' ],
 })
-export class ResultWrapperComponent implements OnInit {
+export class ResultWrapperComponent implements OnInit, OnDestroy {
     resultItems$: Observable<ProviderResultItem[]>;
     state$: Observable<ComponentState>;
 
@@ -32,16 +34,28 @@ export class ResultWrapperComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.store.dispatch(FavoritesStoreActions.load());
+        this.store.select(providerSelector).pipe(
+            untilDestroyed(this),
+        ).subscribe(this.defineTableStructure);
 
-        this.store.select(providerSelector).subscribe(this.defineTableStructure);
-
-        this.store.select(sortSelector).pipe(skip(1)).subscribe(() => {
+        this.store.select(sortSelector).pipe(
+            skip(1),
+            untilDestroyed(this),
+        ).subscribe(() => {
             this.store.dispatch(refresh());
         });
 
-        this.resultItems$ = this.store.select(JokeStoreSelectors.selectResultItems);
-        this.state$       = this.store.pipe(select(JokeStoreSelectors.selectSearchState));
+        this.store.select(selectFavoriteItems).pipe(
+            filter(items => !items || !!(items && !items.length)),
+            untilDestroyed(this),
+            take(1),
+        ).subscribe(() => this.store.dispatch(FavoritesStoreActions.load()));
+
+        this.resultItems$ = this.store.select(SearchStoreSelectors.selectResultItems);
+        this.state$       = this.store.pipe(select(SearchStoreSelectors.selectSearchState));
+    }
+
+    ngOnDestroy(): void {
     }
 
     defineTableStructure = (provider: ProviderEnum): void => {
@@ -68,15 +82,15 @@ export class ResultWrapperComponent implements OnInit {
     }
 
     onRefresh(): void {
-        this.store.dispatch(JokeStoreActions.refresh());
+        this.store.dispatch(SearchStoreActions.refresh());
     }
 
     onAddToFavorite(item: ProviderResultItem): void {
-        this.store.dispatch(JokeStoreActions.select({ item }));
+        this.store.dispatch(SearchStoreActions.select({ item }));
     }
 
     onRemoveFromFavorite(item: ProviderResultItem): void {
-        this.store.dispatch(JokeStoreActions.removeFromFavoriteRequest({ item }));
+        this.store.dispatch(SearchStoreActions.removeFromFavoriteRequest({ item }));
     }
 
     onSortChange(sort: SortInterface): void {

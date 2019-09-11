@@ -1,13 +1,13 @@
-import * as JokeStoreActions from './actions';
-import * as JokeStoreSelectors from './selectors';
-import * as JokeStoreState from './state';
+import * as SearchStoreActions from './actions';
+import * as SearchStoreSelectors from './selectors';
+import * as SearchStoreState from './state';
 
 export {
     SearchStoreModule,
 } from './search-store.module';
 
 export {
-    JokeStoreActions,
-    JokeStoreSelectors,
-    JokeStoreState,
+    SearchStoreActions,
+    SearchStoreSelectors,
+    SearchStoreState,
 };

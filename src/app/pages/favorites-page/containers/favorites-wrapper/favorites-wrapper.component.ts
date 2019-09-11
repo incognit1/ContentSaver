@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { FavoritesStoreActions, FavoritesStoreSelectors, RootStoreState } from '../../../../root-store';
@@ -6,16 +6,17 @@ import { ComponentState } from '../../../../shared/modules/component-state/compo
 import { FavoriteItemModel } from '../../../../shared/models/favorite-item.model';
 import { MatDialog } from '@angular/material';
 import { EditFavoriteDialogComponent } from '../../components/edit-favorite-dialog/edit-favorite-dialog.component';
-import { filter } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../../../../shared/modules/custom-components/components/confirm-dialog/confirm-dialog.component';
 import { load } from '../../../../root-store/favorites-store/actions';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
     selector   : 'app-favorites-wrapper',
     templateUrl: './favorites-wrapper.component.html',
     styleUrls  : [ './favorites-wrapper.component.sass' ],
 })
-export class FavoritesWrapperComponent implements OnInit {
+export class FavoritesWrapperComponent implements OnInit, OnDestroy {
     favoriteItems$: Observable<FavoriteItemModel[]>;
     state$: Observable<ComponentState>;
 
@@ -31,9 +32,14 @@ export class FavoritesWrapperComponent implements OnInit {
 
         this.favoriteItems$.pipe(
             filter(items => !items || (items && !items.length)),
+            take(1),
+            untilDestroyed(this),
         ).subscribe(() => {
             this.store.dispatch(load());
         });
+    }
+
+    ngOnDestroy(): void {
     }
 
     onRefresh(): void {

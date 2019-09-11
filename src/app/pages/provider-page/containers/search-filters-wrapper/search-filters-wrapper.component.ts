@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { providerSelector, searchTermSelector } from '../../../../root-store/filters-store/selectors';
 import { updateProvider, updateSearchTerm } from '../../../../root-store/filters-store/actions';
-import { JokeStoreActions, RootStoreState } from '../../../../root-store';
+import { SearchStoreActions, RootStoreState } from '../../../../root-store';
 
 @Component({
     selector   : 'app-search-filters-wrapper',
@@ -27,6 +27,6 @@ export class SearchFiltersWrapperComponent implements OnInit {
     onFiltersApply({ term, provider }): void {
         this.store.dispatch(updateProvider({ provider }));
         this.store.dispatch(updateSearchTerm({ searchTerm: term }));
-        this.store.dispatch(JokeStoreActions.refresh());
+        this.store.dispatch(SearchStoreActions.refresh());
     }
 }
