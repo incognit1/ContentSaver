@@ -7,7 +7,7 @@ export const selectResultState = createFeatureSelector<State>('search');
 
 export const selectResultItems = createSelector(
     selectResultState,
-    (state: State): ProviderResultItem[] => state.jokes,
+    (state: State): ProviderResultItem[] => state.items,
 );
 
 export const selectSearchState = createSelector(

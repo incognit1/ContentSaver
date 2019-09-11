@@ -10,7 +10,7 @@ export const loadFailure = createAction(
 
 export const loadSuccess = createAction(
   '[Search API] Load Success',
-  props<{ jokes: ProviderResultItem[] }>(),
+  props<{ items: ProviderResultItem[] }>(),
 );
 
 export const refresh = createAction('[Provider Page] Refresh');

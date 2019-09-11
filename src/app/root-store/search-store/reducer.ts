@@ -9,11 +9,11 @@ const featureReducer = createReducer(
         ...state,
         state    : ComponentState.Loading,
     })),
-    on(featureActions.loadSuccess, (state, { jokes }) =>
+    on(featureActions.loadSuccess, (state, { items }) =>
         ({
             ...state,
-            state    : jokes.length ? ComponentState.Success : ComponentState.Empty,
-            jokes    : jokes,
+            state    : items.length ? ComponentState.Success : ComponentState.Empty,
+            items,
         }),
     ),
     on(featureActions.loadFailure, (state, { error }) => ({

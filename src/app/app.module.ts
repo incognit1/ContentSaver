@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
-import { MaterialModule } from './shared/material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ProviderPageModule } from './pages/provider-page/provider-page.module';
 import { FavoritesPageModule } from './pages/favorites-page/favorites-page.module';
@@ -19,36 +18,37 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 const MATERIAL_MODULES = [
-  MatSidenavModule,
-  MatToolbarModule,
-  MatListModule,
-  MatIconModule,
-  MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainMenuComponent,
-    HeaderComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ProviderPageModule,
-    FavoritesPageModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    RootStoreModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
-  ],
-  providers: [
-    AngularFirestore,
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MainMenuComponent,
+        HeaderComponent,
+    ],
+    imports     : [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MATERIAL_MODULES,
+        ProviderPageModule,
+        FavoritesPageModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
+        RootStoreModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+    ],
+    providers   : [
+        AngularFirestore,
+    ],
+    bootstrap   : [ AppComponent ],
 })
-export class AppModule { }
+export class AppModule {
+}

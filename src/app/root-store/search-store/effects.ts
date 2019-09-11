@@ -42,7 +42,7 @@ export class SearchStoreEffects {
                         map(items => this.sortBy(items, sort.sortBy, sort.direction)),
                         map(items =>
                             featureActions.loadSuccess({
-                                jokes: items,
+                                items,
                             }),
                         ),
                         catchError(error => of(featureActions.loadFailure({ error }))),

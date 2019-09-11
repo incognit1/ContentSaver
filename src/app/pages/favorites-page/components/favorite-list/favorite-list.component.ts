@@ -19,7 +19,6 @@ export class FavoriteListComponent implements OnInit {
   @Output() remove = new EventEmitter<number | string>();
   @Output() edit = new EventEmitter<FavoriteItemModel>();
 
-  public readonly componentState = ComponentState;
   public readonly providerTitles = providerTitles;
   private readonly displayedColumns = [ 'provider', 'title', 'additional', 'comment', 'actions' ];
   constructor() {
