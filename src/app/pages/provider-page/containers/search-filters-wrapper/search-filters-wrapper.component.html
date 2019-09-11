@@ -1,0 +1,5 @@
+<app-search-filters
+  [provider]="provider$ | async"
+  [searchTerm]="searchTerm$ | async"
+  (applyFilters)="onFiltersApply($event)"
+></app-search-filters>

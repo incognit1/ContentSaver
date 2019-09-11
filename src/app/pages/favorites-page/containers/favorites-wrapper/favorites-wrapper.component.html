@@ -1,0 +1,6 @@
+<app-favorite-list
+        [items]="favoriteItems$ | async"
+        [state]="state$ | async"
+        (refresh)="onRefresh()"
+        (remove)="onRemove($event)"
+></app-favorite-list>

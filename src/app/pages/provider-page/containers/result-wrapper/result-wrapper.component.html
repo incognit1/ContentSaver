@@ -1,7 +1,9 @@
+<app-search-filters-wrapper></app-search-filters-wrapper>
+
 <app-result-list
-        [jokes]="jokes$ | async"
-        [loading]="isLoading$ | async"
-        [error]="error$ | async"
+        [items]="resultItems$ | async"
+        [state]="state$ | async"
         (refresh)="onRefresh()"
-        (select)="onSelect($event)"
+        (addToFavorite)="onAddToFavorite($event)"
+        [tableStructure]="tableStructure"
 ></app-result-list>

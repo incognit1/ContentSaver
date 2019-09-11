@@ -7,7 +7,7 @@ import { JokeResult } from '../../../shared/models/joke-result';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class IcndbApiService {
   private API_BASE_URL = 'https://api.icndb.com';
   constructor(private http: HttpClient) { }
   getJokes(): Observable<Joke[]> {

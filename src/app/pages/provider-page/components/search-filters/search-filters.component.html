@@ -1,0 +1,28 @@
+<div class="filters-container">
+  <form [formGroup]="filterForm">
+    <mat-form-field class="provider-filter mr-20">
+      <mat-label>Choose a provider</mat-label>
+      <mat-select [formControl]="providerCtrl">
+        <mat-option [value]="provider.value" *ngFor="let provider of providers">
+          {{provider.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             [formControl]="termCtrl"
+             autocomplete="off"
+             autofocus
+             placeholder="Search..">
+    </mat-form-field>
+
+    <button mat-raised-button
+            type="submit"
+            [disabled]="filterForm.invalid"
+            (click)="onFiltersApply()"
+            color="primary"
+            class="color-white search-btn text-uppercase font-weight-light">Go
+    </button>
+  </form>
+</div>

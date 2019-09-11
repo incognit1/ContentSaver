@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Joke } from '../../../../shared/models/joke';
 import { select, Store } from '@ngrx/store';
 import { JokeStoreActions, JokeStoreSelectors, RootStoreState } from '../../../../root-store';
+import { providerSelector } from '../../../../root-store/filters-store/selectors';
+import { ProviderEnum } from '../../../../shared/enums/provider-enum';
+import { TableStructureModel } from '../../../../shared/interfaces/table-structure.interface';
+import { ProviderResultItem } from '../../../../core/providers/proviters.type';
+import { ComponentState } from '../../../../shared/modules/component-state/component-state.enum';
 
 @Component({
   selector: 'app-result-wrapper',
@@ -10,30 +14,45 @@ import { JokeStoreActions, JokeStoreSelectors, RootStoreState } from '../../../.
   styleUrls: ['./result-wrapper.component.sass']
 })
 export class ResultWrapperComponent implements OnInit {
-  jokes$: Observable<Joke[]>;
-  error$: Observable<any>;
-  isLoading$: Observable<boolean>;
+  resultItems$: Observable<ProviderResultItem[]>;
+  state$: Observable<ComponentState>;
+
+  tableStructure: TableStructureModel[] = [];
 
   constructor(private store: Store<RootStoreState.State>) {}
 
   ngOnInit() {
-    this.jokes$ = this.store.pipe(
-        select(JokeStoreSelectors.selectAllJokeItems)
-    );
+    this.store.select(providerSelector).subscribe(this.defineTableStructure);
 
-    this.error$ = this.store.pipe(select(JokeStoreSelectors.selectJokeError));
-
-    this.isLoading$ = this.store.pipe(
-        select(JokeStoreSelectors.selectJokeIsLoading)
-    );
+    this.resultItems$ = this.store.select(JokeStoreSelectors.selectAllJokeItems);
+    this.state$ = this.store.pipe(select(JokeStoreSelectors.selectSearchState));
   }
 
+  defineTableStructure = (provider: ProviderEnum): void => {
+    switch (provider) {
+      case ProviderEnum.Wikipedia:
+        this.tableStructure = [
+          new TableStructureModel('index', 'id', 'ID'),
+          new TableStructureModel('title', 'title', 'Title'),
+          new TableStructureModel('extract', 'description', 'Description'),
+        ];
+        break;
+      case ProviderEnum.IMDB:
+        this.tableStructure = [
+          new TableStructureModel('index', 'id', 'ID'),
+          new TableStructureModel('title', 'title', 'Title'),
+          new TableStructureModel('year', 'year', 'Year'),
+          new TableStructureModel('type', 'type', 'Type'),
+        ];
+        break;
+    }
+  }
   onRefresh() {
     this.store.dispatch(JokeStoreActions.refresh());
   }
 
-  onSelect(id: number) {
-    this.store.dispatch(JokeStoreActions.select({ id }));
+  onAddToFavorite(item: ProviderResultItem) {
+    this.store.dispatch(JokeStoreActions.select({ item }));
   }
 
 }

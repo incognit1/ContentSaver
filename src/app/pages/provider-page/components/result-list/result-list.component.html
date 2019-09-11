@@ -1,22 +1,30 @@
-<div *ngIf="loading">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>
-<div *ngIf="!loading">
+<mat-card>
+  <component-state [state]="state">
+    <div *ngIf="items">
+      <mat-table [dataSource]="items">
+        <ng-container *ngFor="let column of tableStructure">
+          <ng-container [matColumnDef]="column.name">
+            <mat-header-cell *matHeaderCellDef> {{column.title}}</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element[column.key]}}</mat-cell>
+          </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="favorite">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onAddToFavorite(element)"><mat-icon>star_border</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="_displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: _displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+
     <div class="refresh-button">
-        <button mat-fab (click)="this.refresh.emit()">
-            <mat-icon>refresh</mat-icon>
-        </button>
+      <button mat-fab (click)="this.refresh.emit()">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </div>
-
-    <div *ngIf="jokes">
-        <app-result-item
-                *ngFor="let joke of jokes"
-                [joke]="joke"
-                (select)="select.emit($event)"
-        ></app-result-item>
-    </div>
-
-    <div *ngIf="!jokes">No jokes found</div>
-</div>
-
-<div *ngIf="error">An error occurred: {{ error.message }}</div>
+  </component-state>
+</mat-card>

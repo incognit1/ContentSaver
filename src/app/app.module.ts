@@ -10,9 +10,13 @@ import { MaterialModule } from './shared/material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ProviderPageModule } from './pages/provider-page/provider-page.module';
 import { FavoritesPageModule } from './pages/favorites-page/favorites-page.module';
-import { SearchComponent } from './components/search/search.component';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { RootStoreModule } from './root-store';
+import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 const MATERIAL_MODULES = [
   MatSidenavModule,
@@ -27,7 +31,6 @@ const MATERIAL_MODULES = [
     AppComponent,
     MainMenuComponent,
     HeaderComponent,
-    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +42,13 @@ const MATERIAL_MODULES = [
     HttpClientModule,
     HttpClientJsonpModule,
     RootStoreModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    AngularFirestore,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

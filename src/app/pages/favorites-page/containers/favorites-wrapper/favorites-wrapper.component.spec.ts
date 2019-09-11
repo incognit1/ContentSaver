@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResultItemComponent } from './result-item.component';
+import { FavoritesWrapperComponent } from './favorites-wrapper.component';
 
-describe('ResultItemComponent', () => {
-  let component: ResultItemComponent;
-  let fixture: ComponentFixture<ResultItemComponent>;
+describe('ResultWrapperComponent', () => {
+  let component: FavoritesWrapperComponent;
+  let fixture: ComponentFixture<FavoritesWrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResultItemComponent ]
+      declarations: [ FavoritesWrapperComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResultItemComponent);
+    fixture = TestBed.createComponent(FavoritesWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

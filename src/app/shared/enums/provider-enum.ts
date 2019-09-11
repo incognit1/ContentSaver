@@ -1,5 +1,10 @@
 export enum ProviderEnum {
   Wikipedia,
-  Spotify,
-  BestBuy,
+  IMDB,
 }
+
+export const providerTitles = {
+  [ProviderEnum.Wikipedia]: 'Wikipedia',
+  [ProviderEnum.IMDB]: 'IMDB',
+};
+

@@ -1,12 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { featureAdapter, State } from './state';
+import { State } from './state';
 import { Joke } from '../../shared/models/joke';
+import { ComponentState } from '../../shared/modules/component-state/component-state.enum';
 
 export const selectJokeState = createFeatureSelector<State>('joke');
 
-export const selectAllJokeItems: (
-  state: object
-) => Joke[] = featureAdapter.getSelectors(selectJokeState).selectAll;
+export const selectAllJokeItems = createSelector(
+  selectJokeState,
+  (state: State): any[] => state.jokes,
+);
 
 const selectSelectedJokeId = createSelector(
   selectJokeState,
@@ -28,6 +30,11 @@ export const selectCurrentJoke = createSelector(
 export const selectJokeError = createSelector(
   selectJokeState,
   (state: State): any => state.error
+);
+
+export const selectSearchState = createSelector(
+  selectJokeState,
+  (state: State): ComponentState => state.state
 );
 
 export const selectJokeIsLoading = createSelector(

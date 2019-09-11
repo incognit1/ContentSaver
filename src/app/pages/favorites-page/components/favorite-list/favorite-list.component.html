@@ -1,0 +1,46 @@
+<h3 class="page-title">
+  <span>Favorites</span>
+  <button mat-icon-button (click)="this.refresh.emit()"><mat-icon>refresh</mat-icon></button>
+</h3>
+
+<mat-card>
+  <component-state [state]="state">
+    <div *ngIf="items">
+      <mat-table [dataSource]="items">
+
+        <ng-container matColumnDef="provider">
+          <mat-header-cell *matHeaderCellDef> Provider</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{providerTitles[+element.providerId]}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.title}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="additional">
+          <mat-header-cell *matHeaderCellDef> Additional</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.additionalInfo}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="comment">
+          <mat-header-cell *matHeaderCellDef> Comment</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.comment}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onRemove(element.itemId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </component-state>
+</mat-card>
+

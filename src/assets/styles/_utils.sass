@@ -229,12 +229,9 @@ $content-initial-height: calc(100vh - 64px) // window height minus header height
 .color-accent
   color: $accent-color
 .color-white
-  color: white
+  color: white !important
 
 // Background
-.bg-white
-  background-color: $white
-
 .bg-grey-extra-light
   background-color: $grey-extra-light
 
@@ -348,6 +345,8 @@ $content-initial-height: calc(100vh - 64px) // window height minus header height
   margin-right: auto
 .mr-5
   margin-right: 5px
+.mr-10
+  margin-right: 10px
 .mr-20
   margin-right: 20px
 .mr-30
@@ -455,12 +454,6 @@ $content-initial-height: calc(100vh - 64px) // window height minus header height
   @media print
     display: none !important
 
-.block-no-scroll
-  max-height: calc(100vh)
-  overflow: auto
-  padding-top: 64px
-  margin-top: 0
-
 mat-progress-bar
   position: fixed !important
   top: 64px !important
@@ -489,3 +482,10 @@ mat-progress-bar
   .wrapper-scroll
     height: calc(100vh - 56px)
     margin-top: 56px
+
+
+.page-title
+  font-size: 20px
+  font-family: sans-serif
+  margin: 30px 0 20px 0
+  font-weight: 500
