@@ -14,23 +14,8 @@ export class AlertService implements ErrorHandler {
      * @returns {null}
      */
     handleError = (error: any) => {
-        this.notifier.notify('error', `${ this.i18n('Ошибка') }! ${error ? error.message || error : ''}`);
+        this.notifier.notify('error', `'Ошибка!' ${error ? error.message || error : ''}`);
         return null;
-    }
-
-    /**
-     * Checks if there is no errors in the response body.
-     * Alert an error if there is one.
-     * @param response
-     */
-    public responseHasNoErrors(response: any): boolean {
-        const errorText = this.getResponseErrorText(response);
-        if (errorText.length) {
-            this.notifier.notify( 'error', `${ this.i18n('Ошибка') }! ${errorText}`);
-            return false;
-        } else {
-            return true;
-        }
     }
 
     /**

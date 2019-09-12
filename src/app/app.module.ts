@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { NotifierModule } from 'angular-notifier';
 
 const MATERIAL_MODULES = [
     MatSidenavModule,
