@@ -1,11 +1,12 @@
 // angular
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector   : 'app-error-404',
   templateUrl: 'error-404.component.html',
   styleUrls  : [ './../errors.sass' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class Error404Component {

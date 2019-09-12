@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RootStoreState } from '../../../../root-store';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +8,8 @@ import { ProviderFilterInterface } from '../../../../shared/interfaces/provider-
 @Component({
     selector   : 'app-search-filters',
     templateUrl: './search-filters.component.html',
-    styleUrls  : [ './search-filters.component.sass' ]
+    styleUrls  : [ './search-filters.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFiltersComponent implements OnInit {
     @Input() set provider(value: ProviderEnum) {

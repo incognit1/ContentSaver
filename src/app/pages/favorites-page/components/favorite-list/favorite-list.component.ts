@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ComponentState } from '../../../../shared/modules/component-state/component-state.enum';
 import { FavoriteItemModel } from '../../../../shared/models/favorite-item.model';
 import { providerTitles } from '../../../../shared/enums/provider-enum';
@@ -8,6 +8,7 @@ import { dbKeyId } from '../../../../shared/constants/symbols';
   selector: 'app-favorite-list',
   templateUrl: './favorite-list.component.html',
   styleUrls: [ './favorite-list.component.sass' ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteListComponent implements OnInit {
   @Input() items: FavoriteItemModel[];

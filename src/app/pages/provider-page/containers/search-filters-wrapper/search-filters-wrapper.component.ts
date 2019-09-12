@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { providerSelector, searchTermSelector } from '../../../../root-store/filters-store/selectors';
@@ -8,7 +8,8 @@ import { SearchStoreActions, RootStoreState } from '../../../../root-store';
 @Component({
     selector   : 'app-search-filters-wrapper',
     templateUrl: './search-filters-wrapper.component.html',
-    styleUrls  : [ './search-filters-wrapper.component.sass' ]
+    styleUrls  : [ './search-filters-wrapper.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFiltersWrapperComponent implements OnInit {
     provider$: Observable<any>;

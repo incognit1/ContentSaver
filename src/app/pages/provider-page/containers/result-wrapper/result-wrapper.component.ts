@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
@@ -6,7 +6,7 @@ import {
   FiltersStoreActions,
   RootStoreState,
   SearchStoreActions,
-  SearchStoreSelectors
+  SearchStoreSelectors,
 } from '../../../../root-store';
 import { providerSelector, sortSelector } from '../../../../root-store/filters-store/selectors';
 import { ProviderEnum } from '../../../../shared/enums/provider-enum';
@@ -23,6 +23,7 @@ import { selectFavoriteItems } from '../../../../root-store/favorites-store/sele
     selector   : 'app-result-wrapper',
     templateUrl: './result-wrapper.component.html',
     styleUrls  : [ './result-wrapper.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultWrapperComponent implements OnInit, OnDestroy {
     resultItems$: Observable<ProviderResultItem[]>;

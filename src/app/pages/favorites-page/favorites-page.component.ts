@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
     selector   : 'app-favorites-page',
     templateUrl: './favorites-page.component.html',
-    styleUrls  : [ './favorites-page.component.sass' ]
+    styleUrls  : [ './favorites-page.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesPageComponent implements OnInit {
 

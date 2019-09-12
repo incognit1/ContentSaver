@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { FavoritesStoreActions, FavoritesStoreSelectors, RootStoreState } from '../../../../root-store';
@@ -15,6 +15,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
     selector   : 'app-favorites-wrapper',
     templateUrl: './favorites-wrapper.component.html',
     styleUrls  : [ './favorites-wrapper.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesWrapperComponent implements OnInit, OnDestroy {
     favoriteItems$: Observable<FavoriteItemModel[]>;

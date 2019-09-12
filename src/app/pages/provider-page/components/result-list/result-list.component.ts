@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TableStructureModel } from '../../../../shared/interfaces/table-structure.interface';
 import { ComponentState } from '../../../../shared/modules/component-state/component-state.enum';
 import { ProviderResultItem } from '../../../../core/providers/providers-result.type';
@@ -8,6 +8,7 @@ import { SortDirectionEnum, SortInterface } from '../../../../root-store/filters
     selector   : 'app-result-list',
     templateUrl: './result-list.component.html',
     styleUrls  : [ './result-list.component.sass' ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultListComponent implements OnInit {
     @Input() items: ProviderResultItem[];
