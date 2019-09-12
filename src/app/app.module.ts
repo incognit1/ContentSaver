@@ -44,6 +44,22 @@ const MATERIAL_MODULES = [
         ReactiveFormsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        NotifierModule.withConfig({
+        position : {
+          horizontal: {
+            position: 'right',
+            distance: 12,
+          },
+          vertical  : {
+            position: 'top',
+            distance: 72,
+            gap     : 10,
+          },
+        },
+        behaviour: {
+          autoHide: 3000,
+        },
+      }),
     ],
     providers   : [
         AngularFirestore,
