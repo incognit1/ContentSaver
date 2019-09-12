@@ -17,6 +17,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NotifierModule } from 'angular-notifier';
+import { AlertService } from './core/services/alert.service';
 
 const MATERIAL_MODULES = [
     MatSidenavModule,
@@ -64,6 +65,7 @@ const MATERIAL_MODULES = [
     ],
     providers   : [
         AngularFirestore,
+        AlertService,
     ],
     bootstrap   : [ AppComponent ],
 })

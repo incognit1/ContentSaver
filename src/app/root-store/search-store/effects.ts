@@ -61,15 +61,14 @@ export class SearchStoreEffects {
 
     addToFavorite$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(featureActions.select),
-            withLatestFrom(
-                this.store.pipe(select(providerSelector)),
-            ),
-            concatMap(([ action, provider ]) => {
-                return this.dataService.addFavoriteItem(FavoriteItemModel.init(action.item, provider));
+            ofType(featureActions.addToFavoriteRequest),
+            withLatestFrom(this.store.select(providerSelector)),
+            concatMap(([ { item }, provider ]) => {
+                return this.dataService.addFavoriteItem(FavoriteItemModel.init(item, provider)).pipe(
+                    map(() => featureActions.addToFavoriteSuccess({ id: item.id })),
+                    catchError(() => of(featureActions.addToFavoriteError({ id: item.id }))),
+                );
             }),
-            map(_ => featureActions.addToFavoriteSuccess()),
-            map(() => favoritesAction.load()),
         ),
     );
 
@@ -79,10 +78,21 @@ export class SearchStoreEffects {
             withLatestFrom(
                 this.store.pipe(select(selectFavoriteItems)),
             ),
-            concatMap(([ action, favorites ]) => this.dataService.deleteFavoriteItem(
-                this.getFavoriteId(favorites, action.item.id))),
-            map(_ => featureActions.removeFromFavoriteSuccess()),
-            map(() => favoritesAction.load()),
+            concatMap(([ { item }, favorites ]) =>
+                this.dataService.deleteFavoriteItem(
+                    this.getFavoriteId(favorites, item.id),
+                ).pipe(
+                    map(() => featureActions.removeFromFavoriteSuccess({ id: item.id })),
+                    catchError(() => of(featureActions.removeFromFavoriteError({ id: item.id }))),
+                ),
+            ),
+        ),
+    );
+
+    refreshFavoritesEffect$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(featureActions.addToFavoriteSuccess, featureActions.removeFromFavoriteSuccess),
+            map(_ => favoritesAction.load()),
         ),
     );
 

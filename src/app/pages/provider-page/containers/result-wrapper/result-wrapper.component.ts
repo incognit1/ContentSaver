@@ -28,6 +28,10 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
     resultItems$: Observable<ProviderResultItem[]>;
     state$: Observable<ComponentState>;
 
+    /**
+     * This structure is necessary to form tables with various textual contents (based on the technical specifications - this is our case).
+     * If there is a difference in views, this structure will not work.
+     */
     tableStructure: TableStructureModel[] = [];
 
     constructor(private store: Store<RootStoreState.State>) {
@@ -48,7 +52,7 @@ export class ResultWrapperComponent implements OnInit, OnDestroy {
     }
 
     onAddToFavorite(item: ProviderResultItem): void {
-        this.store.dispatch(SearchStoreActions.select({ item }));
+        this.store.dispatch(SearchStoreActions.addToFavoriteRequest({ item }));
     }
 
     onRemoveFromFavorite(item: ProviderResultItem): void {

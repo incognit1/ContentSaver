@@ -43,16 +43,10 @@ export class ResultListComponent implements OnInit {
 
     onAddToFavorite(item: ProviderResultItem): void {
         this.addToFavorite.emit(item);
-        
-        // TODO Использовать эффект для обновления модели после успешного ответа
-        item.isFavorite = true;
     }
 
     onRemoveFromFavorite(item: ProviderResultItem): void {
         this.removeFromFavorite.emit(item);
-  
-        // TODO Использовать эффект для обновления модели после успешного ответа
-        item.isFavorite = false;
     }
 
     onSortChange(event: { active: string, direction: SortDirectionEnum }): void {

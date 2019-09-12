@@ -21,13 +21,19 @@ export const loadSuccess = createAction(
 
 export const refresh = createAction('[Provider Page] Refresh');
 
-export const select = createAction(
+export const addToFavoriteRequest = createAction(
   '[Favorites API] Add To Favorite Request',
   props<{ item: ProviderResultItem }>(),
 );
 
 export const addToFavoriteSuccess = createAction(
-  '[Favorites API] Add To Favorite Success',
+    '[Favorites API] Add To Favorite Success',
+    props<{ id: string | number }>(),
+);
+
+export const addToFavoriteError = createAction(
+    '[Favorites API] Add To Favorite Error',
+    props<{ id: string | number }>(),
 );
 
 export const removeFromFavoriteRequest = createAction(
@@ -37,4 +43,10 @@ export const removeFromFavoriteRequest = createAction(
 
 export const removeFromFavoriteSuccess = createAction(
     '[Search API] Remove From Favorite Success',
+    props<{ id: string | number }>(),
+);
+
+export const removeFromFavoriteError = createAction(
+    '[Favorites API] Remove From Favorite Error',
+    props<{ id: string | number }>(),
 );
