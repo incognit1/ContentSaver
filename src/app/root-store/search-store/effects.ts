@@ -16,6 +16,7 @@ import { selectFavoriteItems } from '../favorites-store/selectors';
 import { ProviderResultItem } from '../../core/providers/providers-result.type';
 import { dbKeyId } from '../../shared/constants/symbols';
 import { customSort } from '../../utils/functions';
+import { AlertService } from '../../core/services/alert.service';
 
 @Injectable()
 export class SearchStoreEffects {
@@ -24,6 +25,7 @@ export class SearchStoreEffects {
         private actions$: Actions,
         private router: Router,
         private store: Store<RootStoreState.State>,
+        private alert: AlertService,
     ) {
     }
 
@@ -66,7 +68,11 @@ export class SearchStoreEffects {
             concatMap(([ { item }, provider ]) => {
                 return this.dataService.addFavoriteItem(FavoriteItemModel.init(item, provider)).pipe(
                     map(() => featureActions.addToFavoriteSuccess({ id: item.id })),
-                    catchError(() => of(featureActions.addToFavoriteError({ id: item.id }))),
+                    catchError(() => {
+                        this.alert.showErrorMessage('Error adding from favorites');
+
+                        return of(featureActions.addToFavoriteError({ id: item.id }));
+                    }),
                 );
             }),
         ),
@@ -83,7 +89,11 @@ export class SearchStoreEffects {
                     this.getFavoriteId(favorites, item.id),
                 ).pipe(
                     map(() => featureActions.removeFromFavoriteSuccess({ id: item.id })),
-                    catchError(() => of(featureActions.removeFromFavoriteError({ id: item.id }))),
+                    catchError(() => {
+                        this.alert.showErrorMessage('Error deleting from favorites');
+
+                        return of(featureActions.removeFromFavoriteError({ id: item.id }));
+                    }),
                 ),
             ),
         ),

@@ -6,19 +6,19 @@ export const load = createAction('[Favorites] Load');
 
 export const loadFailure = createAction(
     '[Favorites] Load Failure',
-    props<{ error: string }>()
+    props<{ error: string }>(),
 );
 
 export const loadSuccess = createAction(
     '[Favorites] Load Success',
-    props<{ favorites: FavoriteItemModel[] }>()
+    props<{ favorites: FavoriteItemModel[] }>(),
 );
 
 export const refresh = createAction('[Jokes Page] Refresh');
 
 export const select = createAction(
     '[Jokes Page] Select',
-    props<{ id: number }>()
+    props<{ id: number }>(),
 );
 
 export const removeFromFavoriteRequest = createAction(
@@ -26,7 +26,23 @@ export const removeFromFavoriteRequest = createAction(
     props<{ id: number | string }>(),
 );
 
+export const removeFromFavoriteError = createAction(
+    '[Favorites Page] Remove Favorite Item Error',
+);
+
+export const removeFromFavoriteSuccess = createAction(
+    '[Favorites Page] Remove Favorite Item Success',
+);
+
 export const editFavoriteItemRequest = createAction(
     '[Favorites Page] Edit Favorite Item Request',
     props<{ item: FavoriteItemModel }>(),
+);
+
+export const editFavoriteItemError = createAction(
+    '[Favorites Page] Edit Favorite Item Error',
+);
+
+export const editFavoriteItemSuccess = createAction(
+    '[Favorites Page] Edit Favorite Item Success',
 );
